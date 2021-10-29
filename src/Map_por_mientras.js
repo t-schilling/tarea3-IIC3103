@@ -35,6 +35,9 @@
                 
                 <div key={data.position}>
                     <Marker center={data.position[0], data.position[1]} radius={100}>
+                        <Tooltip>
+                            {truckInfo(code)}                                
+                        </Tooltip>
                     </Marker>
                 </div>
             )})}

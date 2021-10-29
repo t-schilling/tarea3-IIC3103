@@ -1,36 +1,50 @@
 import React, {useState, useEffect} from 'react';
 import socket from './Socket';
-import { MapContainer, TileLayer, Polyline, Tooltip, Marker, Circle} from 'react-leaflet';
+import { MapContainer, TileLayer, Polyline, Tooltip, Marker, Circle, Popup} from 'react-leaflet';
+import L from 'leaflet'
 import './Map.css';
 import './../App.css'
+import minetruck from './minetruck.png';
+
 
 const Info = () => {
 
     const[trucks, setTrucks] = useState([]);
     const[positions, setPosition] = useState([[]]);
 
+    const myIcon = new L.Icon({
+        iconUrl: minetruck,
+        iconRetinaUrl: minetruck,
+        popupAnchor:[-0,-0],
+        iconSize: [32,45]
+    })
+
     
     useEffect(() => {
-        console.log('Recibiendo info de TRUCKS');
         socket.on('TRUCKS', truck =>{
-            //console.log('--->el code es' + truck[0].code)
+            for (let camion of truck){
+                if(camion.position == undefined){
+                    camion.position = [0,0];
+                };
+                if(camion.status == undefined){
+                    camion.status = 'Unknown';
+                };
+            }
             setTrucks(trucks.concat(truck));
-            
-
         });
         return () => {socket.off('TRUCKS')};
     },[trucks]);
 
     useEffect(() => {
-        
         socket.on( 'POSITION', (obj) => {setPosition(positions.concat([{code: obj.code, position : obj.position}]));
         let truck  = trucks.find(element => element.code === obj.code);
             if (truck === undefined){
-                console.log( "Truck not found");
+                console.log('[POSITION] codigo camion buscado: ' + obj.code)
+                console.log( "[POSITION]  Truck not found");
             }
             else{
                 truck.position = obj.position;
-                //console.log('Nueva posicion de: ' + truck.truck + '['+ truck.position+ ']');
+                //console.log('[POSITION]  Nueva posicion de: ' + obj.code + '<->' + obj.position);
             } 
         });
         return () => {socket.off('POSITION')};
@@ -51,9 +65,8 @@ const Info = () => {
 
     useEffect(() => {
         socket.on('FIX', (truck_object) =>{
-            console.log('solucionando el problema de: ' + truck_object.code);
             let truck  = trucks.find(element => element.code === truck_object.code);
-            if (typeof(truck) === undefined){
+            if (typeof(truck) === undefined){{console.log('[MAP] entrando a tooltip')}
                 return "Truck not found";
             }
             else{
@@ -65,7 +78,7 @@ const Info = () => {
 
     const truckInfo = (code) => {
         let truck  = trucks.find(element => element.code === code);
-        //console.log(truck)
+        console.log('[truckInfo] entrando a la funcion con: ' + truck.code)
         if (truck === undefined){
             return ("Truck not found");
         }
@@ -73,20 +86,22 @@ const Info = () => {
         return (<div>
             <p>'Truck:' {truck.truck}</p><br />
             <p>'Code: '{truck.code}</p><br />
-            <p>'Origin: '{truck.origin}' -- Destination: '{truck.destination}</p><br />
+            <p>'Origin: '{truck.origin}'</p><br />
+            <p>Destination: '{truck.destination}</p><br />
+            <p>'Actual Position: '{truck.position}</p><br /> 
             <p>'Status: '{truck.status}</p> <br />
         </div>)   
     };
 
     const fixTruck = (e) =>{
-        //console.log('Vamos a reparar el siguiente camion: ' + e);
+        console.log('[fixTruck] Yo reparando el siguiente camion: ' + e);
         socket.emit('FIX', {code : e});
     }
 
     const changeStatus = () => {
         for (let element of trucks){
             if(element.status == undefined || element.status == ''){
-                element.status = 'Ok';
+                element.status = 'Ok';{console.log('[MAP] entrando a tooltip')}
             }
         }
     }
@@ -108,6 +123,26 @@ const Info = () => {
                     )
                 })}
                 
+                {trucks.map((data) => {
+                    console.log('[MAP]: primer print posiciones' + data.code + '->'+  data.position)
+                    if(data.position === undefined){
+                        console.log('[MAP] error encontrando posiciones')
+                        return('')
+                    }
+                    else{
+                    console.log('[MAP] posiciones encontradas: '+ data.code + '->'+  data.position)
+                    console.log('[MAP] coordinadas a imprimir: lat: ' + data.position[0] + 'long: ' + data.position[1])
+                        return (
+                            <div >
+                                <Marker position={[data.position[0], data.position[1]]} icon={myIcon}>
+                                        <Popup>
+                                        {truckInfo(data.code)}                                
+                                        </Popup>
+                                </Marker>
+                            </div>
+                        )
+                    }
+                })}
                 
                 
                 
@@ -131,7 +166,7 @@ const Info = () => {
                         <div>Destination: {e.destination} </div>
                         <div>Status: {e.status} </div>
                         <div>
-                        {(e.status !== ('Ok')) && 
+                        {(e.status !== (('Ok') || ('Unknown'))) && 
                             <button value={e.code} onClick={a => fixTruck(a.target.value)}>Fix Truck</button>}
 
 
