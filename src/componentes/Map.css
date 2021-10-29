@@ -1,0 +1,13 @@
+@import '~leaflet/dist/leaflet.css';
+
+
+
+
+
+
+.leaflet-container{
+    height: 50vh;
+    width: 45%;
+    margin-left: 10px;
+    margin-right: auto;
+}
