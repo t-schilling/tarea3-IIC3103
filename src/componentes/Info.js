@@ -53,7 +53,7 @@ const Info = () => {
     useEffect(() => {
         socket.on('FAILURE', ({code, source}) => { 
             let truck  = trucks.find(element => element.code === code);
-            if (typeof(truck) === undefined){
+            if (typeof(truck) == undefined){
                 return "Truck not found";
             }
             else{

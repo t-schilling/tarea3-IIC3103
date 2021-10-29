@@ -96,7 +96,7 @@
 .chat {
   width:  97%;
   min-height: 35vh;
-  max-height: auto;
+  max-height: 350px;
   overflow: scroll;
   border: 4px solid #66fcf1;
   justify-content: center;
@@ -118,6 +118,7 @@
   margin: 10px;
   width: 100%px;
   height: 30px;
+  max-height: 30px;
   border: 2px solid #66fcf1;
   background-color: transparent;
   padding-left: 10px;
@@ -211,5 +212,6 @@
 
 .titleArea { grid-area: titleArea; }
 .mapArea { grid-area: mapArea; }
-.chatArea { grid-area: chatArea; }
+.chatArea { grid-area: chatArea; 
+}
 .infoArea { grid-area: infoArea; }

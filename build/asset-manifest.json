@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/tarea3-IIC3103/static/css/main.329cf6bb.chunk.css",
-    "main.js": "/tarea3-IIC3103/static/js/main.98b96c65.chunk.js",
-    "main.js.map": "/tarea3-IIC3103/static/js/main.98b96c65.chunk.js.map",
+    "main.css": "/tarea3-IIC3103/static/css/main.559fffc2.chunk.css",
+    "main.js": "/tarea3-IIC3103/static/js/main.e260071a.chunk.js",
+    "main.js.map": "/tarea3-IIC3103/static/js/main.e260071a.chunk.js.map",
     "runtime-main.js": "/tarea3-IIC3103/static/js/runtime-main.d9673ca7.js",
     "runtime-main.js.map": "/tarea3-IIC3103/static/js/runtime-main.d9673ca7.js.map",
     "static/css/2.da98c186.chunk.css": "/tarea3-IIC3103/static/css/2.da98c186.chunk.css",
@@ -10,7 +10,7 @@
     "static/js/2.f0901b25.chunk.js.map": "/tarea3-IIC3103/static/js/2.f0901b25.chunk.js.map",
     "index.html": "/tarea3-IIC3103/index.html",
     "static/css/2.da98c186.chunk.css.map": "/tarea3-IIC3103/static/css/2.da98c186.chunk.css.map",
-    "static/css/main.329cf6bb.chunk.css.map": "/tarea3-IIC3103/static/css/main.329cf6bb.chunk.css.map",
+    "static/css/main.559fffc2.chunk.css.map": "/tarea3-IIC3103/static/css/main.559fffc2.chunk.css.map",
     "static/js/2.f0901b25.chunk.js.LICENSE.txt": "/tarea3-IIC3103/static/js/2.f0901b25.chunk.js.LICENSE.txt",
     "static/media/minetruck.9d33f62e.png": "/tarea3-IIC3103/static/media/minetruck.9d33f62e.png"
   },
@@ -18,7 +18,7 @@
     "static/js/runtime-main.d9673ca7.js",
     "static/css/2.da98c186.chunk.css",
     "static/js/2.f0901b25.chunk.js",
-    "static/css/main.329cf6bb.chunk.css",
-    "static/js/main.98b96c65.chunk.js"
+    "static/css/main.559fffc2.chunk.css",
+    "static/js/main.e260071a.chunk.js"
   ]
 }
